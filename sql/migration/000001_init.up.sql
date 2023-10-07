@@ -1,0 +1,6 @@
+CREATE TABLE tb_orders (
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
+    price DECIMAL(10,2) NOT NULL,
+    tax DECIMAL(10,2) NOT NULL,
+    final_price DECIMAL(10,2) NOT NULL
+);
