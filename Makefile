@@ -1,3 +1,7 @@
+run:
+	chmod +x bin/start_server.sh
+	sh bin/start_server.sh
+
 dep_up:
 	docker-compose up -d
 

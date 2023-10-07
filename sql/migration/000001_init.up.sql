@@ -1,4 +1,4 @@
-CREATE TABLE tb_orders (
+CREATE TABLE orders (
     id VARCHAR(100) NOT NULL PRIMARY KEY,
     price DECIMAL(10,2) NOT NULL,
     tax DECIMAL(10,2) NOT NULL,
