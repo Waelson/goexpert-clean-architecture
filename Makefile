@@ -25,3 +25,6 @@ protoc:
 
 evans:
 	evans -r repl
+
+graphql_generate:
+	go run github.com/99designs/gqlgen generate
