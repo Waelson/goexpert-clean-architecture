@@ -19,3 +19,9 @@ open_rabbit_mac:
 
 open_rabbit_linux:
 	xdg-open http://localhost:15672
+
+protoc:
+	protoc --go_out=. --go-grpc_out=. internal/infra/grpc/protofiles/order.proto
+
+evans:
+	evans -r repl
