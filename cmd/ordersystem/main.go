@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"github.com/go-chi/chi/v5/middleware"
 	"net"
 	"net/http"
 
@@ -46,7 +47,9 @@ func main() {
 
 	webserver := webserver.NewWebServer(configs.WebServerPort)
 	webOrderHandler := NewWebOrderHandler(db, eventDispatcher)
-	webserver.AddHandler("/order", webOrderHandler.Create)
+	webserver.Router.Use(middleware.Logger)
+	webserver.Router.Post("/order", webOrderHandler.Create)
+	webserver.Router.Get("/order", webOrderHandler.List)
 	fmt.Println("Starting web server on port", configs.WebServerPort)
 	go webserver.Start()
 

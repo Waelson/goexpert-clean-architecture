@@ -27,6 +27,21 @@ func NewWebOrderHandler(
 	}
 }
 
+func (h *WebOrderHandler) List(w http.ResponseWriter, r *http.Request) {
+	useCase := usecase.NewListOrderUseCase(h.OrderRepository)
+	output, err := useCase.Execute()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = json.NewEncoder(w).Encode(output)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+}
+
 func (h *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var dto usecase.OrderInputDTO
 	err := json.NewDecoder(r.Body).Decode(&dto)

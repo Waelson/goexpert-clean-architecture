@@ -13,3 +13,9 @@ migration_up:
 
 migration_down:
 	migrate -path=sql/migration -database "mysql://root:root@tcp(localhost:3306)/orders" -verbose down
+
+open_rabbit_mac:
+	open http://localhost:15672
+
+open_rabbit_linux:
+	xdg-open http://localhost:15672

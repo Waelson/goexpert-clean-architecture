@@ -14,6 +14,25 @@ func NewOrderRepository(db *sql.DB) *OrderRepository {
 	return &OrderRepository{Db: db}
 }
 
+func (r *OrderRepository) List() ([]entity.Order, error) {
+	stmt, err := r.Db.Prepare("SELECT id, price, tax, final_price FROM orders ORDER BY id")
+	res, err := stmt.Query()
+	if err != nil {
+		return nil, err
+	}
+
+	var orders []entity.Order
+	for res.Next() {
+		var o entity.Order
+		if err = res.Scan(&o.ID, &o.Price, &o.Price, &o.FinalPrice); err != nil {
+			return nil, err
+		}
+		orders = append(orders, o)
+	}
+
+	return orders, nil
+}
+
 func (r *OrderRepository) Save(order *entity.Order) error {
 	stmt, err := r.Db.Prepare("INSERT INTO orders (id, price, tax, final_price) VALUES (?, ?, ?, ?)")
 	if err != nil {
